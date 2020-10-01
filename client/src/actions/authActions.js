@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnError} from "./errorActions";
+import { returnErrors } from "./errorActions";
 
 import {
     USER_LOADED,
@@ -18,13 +18,60 @@ export const loadUser = () => (dispatch, getState) =>{
     //User loading
     dispatch({type: USER_LOADING});
 
+    axios.get('/api/auth/user', tokenConfig(getState))
+        .then(res => dispatch({
+            type: USER_LOADED,
+            payload: res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type: AUTH_ERROR
+            });
+        });
+};
+
+
+export const register = ({name, email, password}) => dispatch =>{
+    //header
+    const config = {
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    };
+    //request body
+    const body = JSON.stringify({name, email, password});
+
+    axios.post('/api/users', body, config)
+        .then(res => dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'));
+            dispatch({
+                type: REGISTER_FAIL
+            });
+        });
+};
+
+//logout user
+export const logout = () =>{
+    return {
+        type: LOGOUT_SUCCESS
+    };
+};
+
+
+//setup config/headers and token
+export const tokenConfig = getState => {
     //Get token from localstorage
     const token = getState().auth.token;
 
     //Header
     const config = {
         headers: {
-            "Contest-type": "application/json"
+            "Content-Type": "application/json"
         }
     }
 
@@ -33,15 +80,5 @@ export const loadUser = () => (dispatch, getState) =>{
         config.headers['x-auth-token'] = token;
     }
 
-    axios.get('/api/auth/user', config)
-        .then(res => dispatch({
-            type: USER_LOADED,
-            payload: res.data
-        }))
-        .catch(err => {
-            dispatch(returnError(err.response.data, err.response.status));
-            dispatch({
-                type: AUTH_ERROR
-            });
-        });
+    return config;
 }
