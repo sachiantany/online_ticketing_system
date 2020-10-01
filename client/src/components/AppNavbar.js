@@ -13,7 +13,8 @@ import {
     DropdownItem,
     NavbarText
 } from 'reactstrap';
-
+import RegisterModel from "./auth/RegisterModel";
+import Logout from "./auth/Logout";
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class AppNavbar extends Component {
                                     <NavLink href="/components/">Components</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
@@ -62,7 +63,16 @@ class AppNavbar extends Component {
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
                             </Nav>
-                            <NavbarText>Simple Text</NavbarText>
+                            <Nav className='ml-auto' navbar>
+                                <NavItem>
+                                    <RegisterModel />
+                                </NavItem>
+                            </Nav>
+                            <Nav className='ml-auto' navbar>
+                                <NavItem>
+                                    <Logout />
+                                </NavItem>
+                            </Nav>
                         </Collapse>
 
                 </Navbar>
