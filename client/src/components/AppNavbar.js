@@ -14,6 +14,7 @@ import {
     NavbarText
 } from 'reactstrap';
 import RegisterModel from "./auth/RegisterModel";
+import LoginModel from "./auth/LoginModel";
 import Logout from "./auth/Logout";
 
 class AppNavbar extends Component {
@@ -64,11 +65,15 @@ class AppNavbar extends Component {
                                 </UncontrolledDropdown>
                             </Nav>
                             <Nav className='ml-auto' navbar>
+
+                            </Nav>
+                            <Nav className='ml-auto' navbar>
                                 <NavItem>
                                     <RegisterModel />
                                 </NavItem>
-                            </Nav>
-                            <Nav className='ml-auto' navbar>
+                                <NavItem>
+                                    <LoginModel />
+                                </NavItem>
                                 <NavItem>
                                     <Logout />
                                 </NavItem>
