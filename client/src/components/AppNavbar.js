@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
     Collapse,
     Navbar,
@@ -14,15 +14,18 @@ import {
     NavbarText
 } from 'reactstrap';
 import RegisterModel from "./auth/RegisterModel";
+import LoginModel from "./auth/LoginModel";
 import Logout from "./auth/Logout";
+import {connect} from "react-redux";
+import PropTypes from 'prop-types';
 
 class AppNavbar extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        isOpen: false
+    };
 
-        this.state = {
-            isOpen: false
-        }
+    static propTypes = {
+        auth: PropTypes.object.isRequired
     }
 
     toggle =() => {
@@ -32,6 +35,32 @@ class AppNavbar extends Component {
     }
 
     render() {
+        const { isAuthenticated, user} = this.props.auth;
+
+        const authLinks = (
+            <Fragment>
+                <NavItem>
+                    <span className="navbar-text mr-3">
+                        <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+                    </span>
+                </NavItem>
+                <NavItem>
+                    <Logout />
+                </NavItem>
+            </Fragment>
+        );
+
+        const guestLinks = (
+            <Fragment>
+                <NavItem>
+                    <RegisterModel />
+                </NavItem>
+                <NavItem>
+                    <LoginModel />
+                </NavItem>
+            </Fragment>
+        );
+
         return (
             <div>
                 <Navbar color="dark" dark expand="md" className="mb-5">
@@ -64,14 +93,7 @@ class AppNavbar extends Component {
                                 </UncontrolledDropdown>
                             </Nav>
                             <Nav className='ml-auto' navbar>
-                                <NavItem>
-                                    <RegisterModel />
-                                </NavItem>
-                            </Nav>
-                            <Nav className='ml-auto' navbar>
-                                <NavItem>
-                                    <Logout />
-                                </NavItem>
+                                { isAuthenticated ? authLinks : guestLinks}
                             </Nav>
                         </Collapse>
 
@@ -81,4 +103,8 @@ class AppNavbar extends Component {
     }
 }
 
-export default AppNavbar;
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, null)(AppNavbar);
