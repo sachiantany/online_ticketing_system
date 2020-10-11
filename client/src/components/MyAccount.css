@@ -1,0 +1,54 @@
+.add_cash_form{
+    margin-top: 50px;
+    margin-left: -20px;
+}
+
+.topic_and_button{
+    margin-top: 50px;
+}
+
+
+.add_cash{
+    margin-left: 300px;
+}
+
+.btn-add-cash{
+    margin-top: -50px;
+    margin-left: 500px;
+}
+
+input{
+    margin-bottom: 30px;
+}
+
+label{
+    margin-bottom: 30px;
+}
+
+.btn-add-cash{
+    margin-bottom: 20px;
+    margin-left: 91.5%;
+}
+
+.modal-content{
+    width:800px;
+    margin-left: -150px;
+    vertical-align: center;
+}
+/*Media Query*/
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .add_cash_form{
+        margin-top: 50px;
+        margin-left: 5px;
+    }
+    .btn-add-cash{
+        margin-left: 250px;
+        margin-bottom: 10px;
+    }
+
+    .modal-content{
+        width:340px;
+        margin-left: 0px;
+    }
+}

@@ -5,6 +5,11 @@ import AppNavbar from "./components/AppNavbar";
 import { Provider } from 'react-redux';
 import store from './store';
 import {loadUser} from "./actions/authActions";
+import Navbar from "./components/Navbar";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Myaccount from "./pages/MyAccount";
+import Myjourney from "./pages/Myjourney";
+import Paymenthistory from "./pages/Paymenthistory";
 
 class App extends Component {
     componentDidMount() {
@@ -14,10 +19,29 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <div className="App">
-                    <AppNavbar/>
-                </div>
+
+                <>
+                    <Router>
+                        <AppNavbar/>
+                        <Navbar />
+
+                        <Switch>
+
+
+                            <Route path='/' exact component={Myaccount} />
+
+                            <Route path='/my_journey' component={Myjourney} />
+
+                            <Route path='/payment_history' component={Paymenthistory} />
+
+                        </Switch>
+
+                    </Router>
+
+                </>
             </Provider>
+
+
         );
     }
 }
