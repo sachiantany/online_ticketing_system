@@ -6,7 +6,7 @@ import store from './store';
 import {loadUser} from "./actions/authActions";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 
 class App extends Component {
     componentDidMount() {
