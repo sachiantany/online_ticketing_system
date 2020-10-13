@@ -64,10 +64,15 @@ class AppNavbar extends Component {
         return (
             <div>
                 {
-                    isAuthenticated ?
+                    isAuthenticated && user.role === "admin" ?
                         <div>
-                            <Redirect to="/admin" />
+                            <Redirect to={{
+                                pathname: "/admin",
+                                state: {userName: user.name}
+                            }}
+                            />
                         </div>
+
                         :
 
                         <Navbar color="dark" dark expand="md" className="mb-5">

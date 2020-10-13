@@ -8,7 +8,7 @@ import { IconContext} from "react-icons";
 import AdminLogout from "../pages/Admin/AdminLogout";
 import {Nav, NavItem} from "reactstrap";
 
-function AdminNavbar() {
+function AdminNavbar(props) {
 
     const [sidebar, setSidebar] = useState(false);
 
@@ -21,7 +21,6 @@ function AdminNavbar() {
                         <Link to="#" className="menu-bars">
                             <FaIcon.FaBars onClick={showSidebar}/>
                         </Link>
-
 
                         <Nav className='ml-auto' navbar>
                             <NavItem className='nav-text'>
