@@ -9,7 +9,8 @@ const User = require('../../models/User');
 
 //@route POST api/user
 router.post('/', (req,res) =>{
-   const { name, email, password} = req.body;
+   const { name, email, password, role} = req.body;
+   const userRole = 'user';
 
    //validation
    if(!name || !email || !password){
@@ -24,7 +25,8 @@ router.post('/', (req,res) =>{
           const newUser = new User({
              name,
              email,
-             password
+             password,
+             role
           });
 
           //create salt and hash
@@ -47,7 +49,8 @@ router.post('/', (req,res) =>{
                                     user: {
                                         id: user.id,
                                         name: user.name,
-                                        email: user.email
+                                        email: user.email,
+                                        role: user.role
                                     }
                                 });
                             }

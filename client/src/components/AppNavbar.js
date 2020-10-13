@@ -18,6 +18,7 @@ import LoginModel from "./auth/LoginModel";
 import Logout from "./auth/Logout";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom";
 
 class AppNavbar extends Component {
     state = {
@@ -26,13 +27,13 @@ class AppNavbar extends Component {
 
     static propTypes = {
         auth: PropTypes.object.isRequired
-    }
+    };
 
     toggle =() => {
         this.setState({
             isOpen: !this.state.isOpen
         });
-    }
+    };
 
     render() {
         const { isAuthenticated, user} = this.props.auth;
@@ -63,41 +64,53 @@ class AppNavbar extends Component {
 
         return (
             <div>
-                <Navbar color="dark" dark expand="md" className="mb-5">
-                        <NavbarBrand href="/">Ticketing System</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="mr-auto" navbar>
-                                <NavItem>
-                                    <NavLink href="/components/">Components</NavLink>
-                                </NavItem>
-                                <NavItem>
+                {
+                    isAuthenticated ?
+                        <div>
+                            <Redirect to="/admin" />
+                        </div>
+                        :
 
-                                </NavItem>
-                                <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav caret>
-                                        Options
-                                    </DropdownToggle>
-                                    <DropdownMenu right>
-                                        <DropdownItem>
-                                            Option 1
-                                        </DropdownItem>
-                                        <DropdownItem>
-                                            Option 2
-                                        </DropdownItem>
-                                        <DropdownItem divider />
-                                        <DropdownItem>
-                                            Reset
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledDropdown>
-                            </Nav>
-                            <Nav className='ml-auto' navbar>
-                                { isAuthenticated ? authLinks : guestLinks}
-                            </Nav>
-                        </Collapse>
+                        <Navbar color="dark" dark expand="md" className="mb-5">
+                            <NavbarBrand href="/">Ticketing System</NavbarBrand>
+                            <NavbarToggler onClick={this.toggle}/>
+                            <Collapse isOpen={this.state.isOpen} navbar>
+                                <Nav className="mr-auto" navbar>
+                                    <NavItem>
+                                        <NavLink href="/components/">Components</NavLink>
+                                    </NavItem>
+                                    <NavItem>
 
-                </Navbar>
+                                    </NavItem>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle nav caret>
+                                            Options
+                                        </DropdownToggle>
+                                        <DropdownMenu right>
+                                            <DropdownItem>
+                                                Option 1
+                                            </DropdownItem>
+                                            <DropdownItem>
+                                                Option 2
+                                            </DropdownItem>
+                                            <DropdownItem divider/>
+                                            <DropdownItem>
+                                                Reset
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                </Nav>
+                                <Nav className='ml-auto' navbar>
+                                    {isAuthenticated ? authLinks : guestLinks}
+                                </Nav>
+
+                            </Collapse>
+
+                        </Navbar>
+
+                }
+
+
             </div>
         );
     }
