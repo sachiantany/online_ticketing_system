@@ -1,49 +1,72 @@
 import React, {Component} from 'react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
+
 import AppNavbar from "./components/AppNavbar";
+
 import { Provider } from 'react-redux';
+
 import store from './store';
+
 import {loadUser} from "./actions/authActions";
-import Navbar from "./components/Navbar";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
 import Myaccount from "./pages/MyAccount";
 import Myjourney from "./pages/Myjourney";
 import Paymenthistory from "./pages/Paymenthistory";
 
+
+
 class App extends Component {
+
     componentDidMount() {
+
         store.dispatch(loadUser());
+
     }
+
+
 
     render() {
+
         return (
+
             <Provider store={store}>
 
-                <>
-                    <Router>
-                        <AppNavbar/>
-                        <Navbar />
+                <div className="App">
 
-                        <Switch>
+                    <AppNavbar/>
+
+                    <div className="container">
+
+                        <Router>
+
+                            <Switch>
+                                <Route path='/my_profile' exact component={Myaccount} />
+                                <Route path='/my_profile/my_journey' component={Myjourney} />
+                                <Route path='/my_profile/payment_history' component={Paymenthistory} />
+
+                            </Switch>
+
+                        </Router>
+
+                    </div>
 
 
-                            <Route path='/' exact component={Myaccount} />
 
-                            <Route path='/my_journey' component={Myjourney} />
+                </div>
 
-                            <Route path='/payment_history' component={Paymenthistory} />
-
-                        </Switch>
-
-                    </Router>
-
-                </>
             </Provider>
 
-
         );
+
     }
+
 }
+
+
 
 export default App;

@@ -15,7 +15,7 @@ export const SidebarData = [
 
         title: 'My Account',
 
-        path: '/',
+        path: '/my_profile',
 
         icon: <SiIcons.SiCashapp/>,
 
@@ -27,7 +27,7 @@ export const SidebarData = [
 
         title: 'Payment History',
 
-        path: '/payment_history',
+        path: '/my_profile/payment_history',
 
         icon: <MdIcons.MdPayment />,
 
@@ -39,7 +39,7 @@ export const SidebarData = [
 
         title: 'My Routes',
 
-        path: '/my_journey',
+        path: '/my_profile/my_journey',
 
         icon: <FaIcons.FaRoute />,
 

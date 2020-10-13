@@ -19,6 +19,10 @@ const PaymentSchema = new Schema({
     CCV: {
         type: Number,
         required: true
+    },
+    amount: {
+        type: Number,
+        required: true
     }
 });
 
