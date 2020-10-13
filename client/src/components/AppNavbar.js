@@ -10,8 +10,7 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem,
-    NavbarText
+    DropdownItem
 } from 'reactstrap';
 import RegisterModel from "./auth/RegisterModel";
 import LoginModel from "./auth/LoginModel";

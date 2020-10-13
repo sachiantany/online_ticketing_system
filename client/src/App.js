@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import AppNavbar from "./components/AppNavbar";
-import AdminNavbar from "./components/AppNavbar";
 import { Provider } from 'react-redux';
 import store from './store';
 import {loadUser} from "./actions/authActions";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Home from "./pages/Home"
 

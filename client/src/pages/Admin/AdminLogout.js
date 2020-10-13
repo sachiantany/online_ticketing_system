@@ -1,22 +1,16 @@
 import React, {Component} from 'react';
 import PropType from "prop-types";
 import {
-    Alert,
     Button,
-    Form,
-    FormGroup,
-    Input,
     Label,
     Modal,
     ModalBody,
     ModalHeader,
-    NavItem,
     NavLink
 } from "reactstrap";
 import {connect} from "react-redux";
 import {logout} from "../../actions/authActions";
-import Logout from "../../components/auth/Logout";
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom";
 
 class AdminLogout extends Component {
 
