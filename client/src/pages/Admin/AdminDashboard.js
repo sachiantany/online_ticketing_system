@@ -26,9 +26,9 @@ class AdminDashboard extends Component {
                             <AdminNavbar/>
 
                             <Switch>
-                                <Route path="/timetable" component={Timetable}/>
-                                <Route path="/routes" component={BusRoute}/>
-                                <Route path="/buses" component={AllBuses}/>
+                                <Route exact path="/timetable" component={Timetable}/>
+                                <Route exact path="/routes" component={BusRoute}/>
+                                <Route exact path="/buses" component={AllBuses}/>
                             </Switch>
 
                         </Router>
