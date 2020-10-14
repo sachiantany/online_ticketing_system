@@ -7,6 +7,10 @@ const PaymentSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     cardNo: {
         type: Number,
         required: true,

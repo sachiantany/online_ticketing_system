@@ -9,7 +9,6 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Home from "./pages/Home";
 
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Myaccount from "./pages/MyAccount";
 import Myjourney from "./pages/Myjourney";
@@ -30,33 +29,11 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route path="/admin" component={AdminDashboard}/>
+                            <Route path='/my_profile' exact component={Myaccount} />
+                            <Route path='/my_profile/my_journey' component={Myjourney} />
+                            <Route path='/my_profile/payment_history' component={Paymenthistory} />
                         </Switch>
                     </Router>
-
-
-
-                <div className="App">
-
-                    <AppNavbar/>
-
-                    <div className="container">
-
-                        <Router>
-
-                            <Switch>
-                                <Route path='/my_profile' exact component={Myaccount} />
-                                <Route path='/my_profile/my_journey' component={Myjourney} />
-                                <Route path='/my_profile/payment_history' component={Paymenthistory} />
-
-                            </Switch>
-
-                        </Router>
-
-                    </div>
-
-
-
-                </div>
 
             </Provider>
         );

@@ -82,9 +82,10 @@ class AppNavbar extends Component {
                                 <Nav className="mr-auto" navbar>
                                     <NavItem>
                                         <NavLink href="/components/">Components</NavLink>
+
                                     </NavItem>
                                     <NavItem>
-
+                                        <NavLink href="/my_profile">My Profile</NavLink>
                                     </NavItem>
                                     <UncontrolledDropdown nav inNavbar>
                                         <DropdownToggle nav caret>

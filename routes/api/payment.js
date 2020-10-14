@@ -26,6 +26,8 @@ router.post('/insert',(req,res) => {
 
         name:req.body.name,
 
+        email: req.body.email,
+
         cardNo:req.body.cardNo,
 
         expDate:req.body.expDate,

@@ -17,6 +17,7 @@ class MyAccount extends Component{
 
         this.state = {
             name: '',
+            email:'',
             cardNo: '',
             expDate: '',
             CCV:'',
@@ -40,6 +41,7 @@ class MyAccount extends Component{
         //const {name, cardNo, expDate, CCV, amount} = this.state;
         const newPayment = {
             name: this.state.name,
+            email: this.state.email,
             cardNo: parseInt(this.state.cardNo),
             expDate: this.state.expDate.concat("-31"),
             CCV: parseInt(this.state.CCV),
@@ -112,6 +114,15 @@ class MyAccount extends Component{
                                                className="form-control"
                                                name='name'
                                                id='name'
+                                               onChange={this.onChange}/>
+                                    </div>
+
+                                    <div className="md-form mb-5">
+                                        <label htmlFor="email">Email</label>
+                                        <input type="text"
+                                               className="form-control"
+                                               name='email'
+                                               id='email'
                                                onChange={this.onChange}/>
                                     </div>
 

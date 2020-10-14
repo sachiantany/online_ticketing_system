@@ -6,6 +6,8 @@ import * as MdIcons from 'react-icons/md';
 
 import * as SiIcons from 'react-icons/si';
 
+import * as IoIcons from 'react-icons/io';
+
 
 
 export const SidebarData = [
@@ -45,19 +47,19 @@ export const SidebarData = [
 
         cName: 'nav-text'
 
-    }
+    },
 
-    //{
+    {
 
-        //title: 'Team',
+        title: 'Home',
 
-        //path: '/team',
+        path: '/',
 
-        //icon: <IoIcons.IoMdPeople />,
+        icon: <FaIcons.FaRoute />,
 
-        //cName: 'nav-text'
+        cName: 'nav-text'
 
-    //},
+    },
 
    // {
 
