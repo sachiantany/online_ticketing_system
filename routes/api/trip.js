@@ -17,7 +17,8 @@ router.post('/insert',(req,res) => {
         startLocation:req.body.startLocation,
         endLocation:0,
         fair:0,
-        distance:0
+        distance:0,
+        isGuest: req.body.isGuest
     });
     newTrip.save().then(trip => res.json(trip));
 });

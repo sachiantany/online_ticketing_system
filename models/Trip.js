@@ -28,6 +28,9 @@ const TripSchema = new Schema({
     distance:{
         type: Number
     },
+    isGuest:{
+        type:Number
+    }
 })
 
 module.exports = Trip = mongoose.model('trip', TripSchema);
