@@ -7,8 +7,8 @@ import {connect} from "react-redux";
 import axios from 'axios';
 import {register} from "../actions/authActions";
 import {clearErrors} from "../actions/errorActions";
-
-
+import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 class MyAccount extends Component{
 
@@ -23,7 +23,20 @@ class MyAccount extends Component{
             CCV:'',
             amount:''
         };
+
     }
+
+    static propTypes = {
+        auth: PropTypes.object.isRequired
+    };
+    /*componentDidMount() {
+        axios.get('http://localhost:5000/api/payment/users')
+            .then(res => {
+                console.log(res);
+                this.setState({name: res.data.name,
+                                    email:res.data.email})
+            });
+    }*/
 
 
 
@@ -48,6 +61,12 @@ class MyAccount extends Component{
             amount:parseFloat(this.state.amount)
         };
 
+        if(newPayment.name === undefined || newPayment.email === undefined || newPayment.cardNo === NaN || newPayment.expDate === "-31" || newPayment.CCV === NaN || newPayment.amount === NaN){
+            Swal.fire(
+                'Error',
+                'Fields Cannot be Null!',
+                'error')
+        }
         console.log(newPayment);
 
         axios.post('http://localhost:5000/api/payment/insert', newPayment)
@@ -55,18 +74,29 @@ class MyAccount extends Component{
             .then(res => {
 
                     console.log(res.status);
+                    if(res.status === 200){
+                        console.log("Success!");
+                        Swal(
+                            'Payment Added Successfully!'
+                        )
 
+                    }
 
                     //this.props.register(newPayment);
                 }
 
             ).catch((reason) => {
-                console.log(reason);
+                    console.log(reason);
+                        Swal(
+                            "Payment Add Failed!");
         });
 
-    };
+
+    }
+    ;
     render()
     {
+        const {user} = this.props.auth;
         return (
             <div className='container'>
                 <Navbar/>
@@ -78,20 +108,16 @@ class MyAccount extends Component{
 
                 <form className="add_cash_form">
                     <div className="form-group">
-                        <label htmlFor="FirstName">First Name</label>
-                        <input type="text" className="form-control" id="firstName"/>
-                    </div>
-                    <div className="LastName">
-                        <label htmlFor="cardNumber">Last Name</label>
-                        <input type="text" className="form-control" id="lastName"/>
+                        <label htmlFor="FirstName">Name : </label>
+                        <strong className="fetched_name">{user ? `${user.name}` : ''}</strong>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="NIC">NIC</label>
-                        <input type="text" className="form-control" id="nic"/>
+                        <label htmlFor="email">Email : </label>
+                        <strong className="fetched_email">{user ? `${user.email}` : ''}</strong>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Contact">Contact Number</label>
-                        <input type="number" className="form-control" id="contact"/>
+                        <label htmlFor="email">Registered Date : </label>
+                        <strong className="fetched_register_date">{user ? `${user.register_date.toString().substr(0,10)}` : ''}</strong>
                     </div>
 
                 </form>
@@ -165,6 +191,7 @@ class MyAccount extends Component{
                                 </div>
                                 <div className="modal-footer d-flex justify-content-center">
                                     <button type="button" className="btn btn-dark" onClick={() => this.onSubmit()}>Add Cash</button>
+                                    <button type="reset" className="btn btn-dark" >Reset</button>
                                 </div>
 
                             </div>

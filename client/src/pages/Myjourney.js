@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from "../components/Navbar";
+import '../components/MyAccount.css';
 
 
 
@@ -7,9 +8,11 @@ function Myjourney() {
 
     return (
 
-        <div className='reports'>
+        <div className='container'>
             <Navbar/>
-            <h1>Hello</h1>
+            <div className="topic_and_button">
+                <h2>My Trips</h2>
+            </div>
 
         </div>
 

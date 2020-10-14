@@ -15,6 +15,7 @@ const jwt = require('jsonwebtoken');
 //busRoute Model
 
 const Payment = require('../../models/AddCash');
+const User = require('../../models/User');
 
 
 
@@ -53,10 +54,24 @@ router.post('/insert',(req,res) => {
        // .then(payment =>res.json(payment));
 });*/
 
-router.get('/', (req, res) =>{
-    Payment.find(Payment.Amount)
-        .then(payment =>res.json(payment));
+router.get('/:id', (req, res) =>{
+    Payment.findById(req.params.id)
+        .then(payment =>res.status(200).json({
+            payment: payment
+        }));
 });
+
+router.get('/', (req, res) =>{
+    Payment.find()
+        .then(payment =>res.status(200).json({
+            payment: payment
+        }));
+});
+
+/*router.get('/users', (req, res) =>{
+    User.find()
+        .then(user =>res.json(user));
+});*/
 
 
 

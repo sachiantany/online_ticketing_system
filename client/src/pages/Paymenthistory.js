@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Navbar from "../components/Navbar";
+import '../components/MyAccount.css';
 
 
 
@@ -8,9 +9,12 @@ function Paymenthistory() {
 
     return (
 
-        <div className='products'>
+        <div className='container'>
             <Navbar/>
-            <h1>Products</h1>
+            <div className="topic_and_button">
+                <h2>Payment History</h2>
+            </div>
+
 
         </div>
 
