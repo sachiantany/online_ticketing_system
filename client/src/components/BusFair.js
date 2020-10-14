@@ -28,7 +28,10 @@ class  BusFair extends Component {
         isStartTrip :0,
         username:"",
         action:"Start Trip",
-        endTripUser:[]
+        endTripUser:[],
+        tripSum: 0,
+        paymentSum :[],
+        isGuest :0
     };
 
     componentDidMount() {
@@ -96,6 +99,60 @@ class  BusFair extends Component {
             })
     }
 
+    tripSum(userName){
+        axios.get(SERVER_PATH + '/api/trip/tripSum/'+userName)
+            .then(response => {
+
+                let trip_sum = {
+                        _id:'',
+                        total:0
+                }
+
+                trip_sum = response.data;
+                console.log(trip_sum)
+
+                this.setState({tripSum :trip_sum[0].total}, () => {
+                    console.log(this.state.tripSum)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    depositSum(userName){
+        axios.get(SERVER_PATH + '/api/trip/paymentSum/'+userName)
+            .then(response => {
+
+                let payment_sum = {
+                    _id:'',
+                    total:0
+                }
+
+                payment_sum = response.data;
+                console.log(payment_sum)
+
+                this.setState({tripSum :payment_sum[0].total}, () => {
+                    console.log(this.state.tripSum)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    isGuestValidate(userName){
+        axios.get(SERVER_PATH + '/api/trip/isGuest/'+userName)
+            .then(response => {
+                this.setState({isGuest :response.data}, () => {
+                    console.log('Guest Status : '+this.state.isGuest)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     changeRoute(e){
         //this.setState({selectedRoute: e.target.value})
         this.setState({selectedRoute:  e.target.value}, () => {
@@ -121,6 +178,15 @@ class  BusFair extends Component {
             console.log(this.state.username);
             this.actionStatus(this.state.username);
             console.log(this.state.isStartTrip)
+
+            this.tripSum(this.state.username);
+            console.log('This is trip sum '+ this.state.tripSum)
+
+            this.depositSum(this.state.username);
+            console.log('This is trip sum '+ this.state.tripSum)
+
+            this.isGuestValidate(this.state.username);
+            console.log('Guest Status : '+this.state.isGuest)
         });
     }
 
@@ -128,6 +194,14 @@ class  BusFair extends Component {
         Swal.fire(
             'Trip Started!',
             'Trip Started Successfully',
+            'success'
+        )
+    }
+
+    confirmEndAlert() {
+        Swal.fire(
+            'Trip Ended!',
+            'Thanking You to Travel with us ',
             'success'
         )
     }
@@ -177,7 +251,7 @@ class  BusFair extends Component {
                             .then(res =>{
                                 console.log(res.data);
                                 this.setState({username: ""});
-                                this.confirmStartAlert();
+                                this.confirmEndAlert();
                             })
                             .catch(error => {
                                 console.log(error.response)
