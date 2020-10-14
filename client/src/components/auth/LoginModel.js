@@ -58,6 +58,12 @@ class LoginModel extends Component {
         });
     };
 
+    onCloseModal = () => {
+        this.setState({
+            modal: false
+        });
+    };
+
     onChange = e => {
         this.setState({[e.target.name]: e.target.value });
     };
@@ -82,8 +88,8 @@ class LoginModel extends Component {
                     Login
                 </NavLink>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+                <Modal isOpen={this.state.modal} toggle={this.onCloseModal}>
+                    <ModalHeader toggle={this.onCloseModal}>Login</ModalHeader>
                     <ModalBody>
                         { this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null }
                         <Form onSubmit={this.onSubmit}>

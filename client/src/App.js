@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import AppNavbar from "./components/AppNavbar";
 import { Provider } from 'react-redux';
 import store from './store';
 import {loadUser} from "./actions/authActions";
-import BusFair from "./components/BusFair";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Home from "./pages/Home";
 
 class App extends Component {
     componentDidMount() {
@@ -16,17 +16,15 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <div className="App">
-                    <AppNavbar/>
-                    <div className="container">
-                        <Router>
-                            <Switch>
-                                <Route path="/" component={BusFair}/>
-                            </Switch>
-                        </Router>
-                    </div>
 
-                </div>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/admin" component={AdminDashboard}/>
+                        </Switch>
+                    </Router>
+
+
             </Provider>
         );
     }

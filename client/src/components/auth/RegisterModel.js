@@ -22,6 +22,7 @@ class RegisterModel extends Component {
         name: '',
         email: '',
         password: '',
+        role: 'user',
         msg: null
     };
 
@@ -51,6 +52,12 @@ class RegisterModel extends Component {
         }
     }
 
+    onCloseModal = () => {
+        this.setState({
+            modal: false
+        });
+    };
+
     toggle = () => {
         //clear errors
         this.props.clearErrors();
@@ -66,20 +73,21 @@ class RegisterModel extends Component {
     onSubmit = e =>{
         e.preventDefault();
 
-        const { name, email, password } = this.state;
+        const { name, email, password, role } = this.state;
 
         //create user
         const newUser = {
             name,
             email,
-            password
+            password,
+            role
         };
 
         //Attempt to register
         this.props.register(newUser);
 
         //close toggle
-        // this.toggle();
+         //this.toggle();
     }
 
     render() {
@@ -89,8 +97,8 @@ class RegisterModel extends Component {
                     Register
                 </NavLink>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>Register</ModalHeader>
+                <Modal isOpen={this.state.modal} toggle={this.onCloseModal}>
+                    <ModalHeader toggle={this.onCloseModal}>Register</ModalHeader>
                     <ModalBody>
                         { this.state.msg ? <Alert color="danger">{this.state.msg}</Alert> : null }
                         <Form onSubmit={this.onSubmit}>

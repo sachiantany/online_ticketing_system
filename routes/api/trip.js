@@ -20,6 +20,12 @@ router.post('/insert',(req,res) => {
     newTrip.save().then(trip => res.json(trip));
 });
 
+
+router.get('/',(req,res) =>{
+    Trip.find()
+        .then(trip => res.json(trip))
+});
+
 // @route   GET
 // @desc    Return whether the trip is to start or end
 router.get('/status/:id',(req,res) =>{
