@@ -34,7 +34,7 @@ router.route('/endTrip/:id').post((req, res) =>{
         .then(trip =>{
             trip.endLocation = req.body.endLocation;
             trip.distance = req.body.distance;
-            trip.fair = req.body.distance;
+            trip.fair = req.body.fair;
 
             trip.save()
                 .then(() => res.json('Category Updated!'))
@@ -47,6 +47,21 @@ router.route('/endTrip/:id').post((req, res) =>{
 // desc get trip info of a user
 router.get('/:id',(req,res) =>{
     Trip.find({username : req.params.id,endLocation : 0})
+        .then(trip => res.json(trip))
+});
+
+router.get('/tripSum/:id',(req,res) =>{
+    Trip.aggregate([
+        { "$match": { "username": req.params.id } },
+        {
+            $group: {
+                _id: "$username",
+                total: {
+                    $sum: "$fair"
+                }
+            }
+        }
+    ])
         .then(trip => res.json(trip))
 });
 

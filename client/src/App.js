@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import {loadUser} from "./actions/authActions";
 import BusFair from "./components/BusFair";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Test from "./components/Test";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class App extends Component {
     componentDidMount() {
