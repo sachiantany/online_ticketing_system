@@ -1,0 +1,12 @@
+[1010/074253.798:ERROR:settings.cc(430)] Settings version is not 5
+[1010/075253.805:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\091108b9-54e9-498d-a93c-f212c3356c34: The system cannot find the path specified. (0x3)
+[1010/075253.807:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\18f7deac-66c9-4b2c-ba8a-f4b013b9fc10: The system cannot find the path specified. (0x3)
+[1010/075253.809:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\33c27bf1-2054-4c9f-8cff-5c3d8eb21e7d: The system cannot find the path specified. (0x3)
+[1010/075253.854:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\6d78631f-6f80-477f-ba3b-a95e7ea38dbc: The system cannot find the path specified. (0x3)
+[1010/075253.859:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\6df8f935-fa6b-4c05-bb5f-c0c5778f6617: The system cannot find the path specified. (0x3)
+[1010/075253.861:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\85da03dc-325d-41ac-b804-1db2ad6b7ce2: The system cannot find the path specified. (0x3)
+[1010/075253.864:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\c0d5ea26-a30d-405d-8775-eb1a9ab7564a: The system cannot find the path specified. (0x3)
+[1010/075253.914:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\SACHINTHA\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\d167e0a2-0f89-4987-9423-2ddd0ce300b4: The system cannot find the path specified. (0x3)
+[1010/075253.915:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1010/232636.133:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1011/045653.271:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)

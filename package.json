@@ -27,13 +27,17 @@
     "config": "^3.3.2",
     "cors": "^2.8.5",
     "create-react-context": "^0.3.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "missing": "0.0.1",
     "mongoose": "^5.10.6",
+    "react-icons": "^3.11.0",
+    "react-router-dom": "^5.2.0",
     "react-devtools": "^4.8.2",
     "react-transition-group": "^4.4.1",
     "reactstrap": "^8.6.0",
+    "sweetalert2": "^10.5.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
