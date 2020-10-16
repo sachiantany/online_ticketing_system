@@ -15,11 +15,12 @@ const jwt = require('jsonwebtoken');
 //busRoute Model
 
 const Payment = require('../../models/AddCash');
-const User = require('../../models/User');
+const Trip = require('../../models/Trip');
+//const User = require('../../models/User');
 
 
 
-// @route  POST api/trip
+// @route  POST api/payment
 
 router.post('/insert',(req,res) => {
 
@@ -45,33 +46,38 @@ router.post('/insert',(req,res) => {
 
 });
 
-/*router.get('/:id',  function(req, res){
-
-    Payment.find({},function (err,docs) {
-        if(err) res.json(err);
-        else res.render('Index',{Payment:docs})
-    });
-       // .then(payment =>res.json(payment));
-});*/
-
-router.get('/:id', (req, res) =>{
-    Payment.findById(req.params.id)
-        .then(payment =>res.status(200).json({
-            payment: payment
-        }));
-});
-
+//get all payment details
 router.get('/', (req, res) =>{
     Payment.find()
-        .then(payment =>res.status(200).json({
-            payment: payment
-        }));
+        .then(payment =>res.status(200).json(payment))
+        .catch(err => {
+            console.log(err)
+        })
 });
 
-/*router.get('/users', (req, res) =>{
-    User.find()
-        .then(user =>res.json(user));
-});*/
+
+//get payment details by id
+router.get('/:id', (req, res) =>{
+    Payment.findById(req.params.id)
+        .then(payment =>res.status(200).json(payment))
+        .catch(err => {
+            console.log(err)
+        })
+});
+
+
+//get payment details by email
+router.get('/email/:id', (req, res) =>{
+    Payment.find({email:req.params.id})
+        .then(payment =>res.status(200).json(payment))
+        .catch(err => {
+            console.log(err)
+        })
+});
+
+
+
+
 
 
 

@@ -1,9 +1,13 @@
 .side_navbar {
 
     background-color: #060b26;
+
     margin-right: -210px;
-    height: 80px;
+
+    height: 100%;
+
     margin-top: 0px;
+
     display: flex;
 
     margin-left: -220px;

@@ -1,27 +1,37 @@
 
-import React from 'react';
+import React, {Component} from 'react';
 import Navbar from "../components/Navbar";
 import '../components/MyAccount.css';
+import axios from "axios";
+import {SERVER_PATH} from "../constants/constant";
+import PropTypes from "prop-types";
+import PaymentHistoryScreen from "./paymentHistoryScreen"
 
 
 
-function Paymenthistory() {
+class PaymentHistory extends Component{
 
-    return (
+    render() {
+        return (
+            <div className='container'>
+                <Navbar/>
 
-        <div className='container'>
-            <Navbar/>
-            <div className="topic_and_button">
-                <h2>Payment History</h2>
+                <div className="topic_and_button">
+                    <h2>Payment History</h2>
+                </div>
+
+                <PaymentHistoryScreen/>
+
+
             </div>
 
+        );
 
-        </div>
+    }
 
-    );
 
 }
 
 
 
-export default Paymenthistory;
+export default PaymentHistory;

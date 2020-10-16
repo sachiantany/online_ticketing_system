@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import '../components/MyAccount.css';
-import MyProfile from "../MyProfileAPI";
 import Navbar from "../components/Navbar";
 import "../components/MyAccount.css";
 import {connect} from "react-redux";
 import axios from 'axios';
-import {register} from "../actions/authActions";
-import {clearErrors} from "../actions/errorActions";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import Demo from "../pages/demo";
 
 class MyAccount extends Component{
 
@@ -76,7 +74,7 @@ class MyAccount extends Component{
                     console.log(res.status);
                     if(res.status === 200){
                         console.log("Success!");
-                        Swal(
+                        Swal.fire(
                             'Payment Added Successfully!'
                         )
 
@@ -87,13 +85,12 @@ class MyAccount extends Component{
 
             ).catch((reason) => {
                     console.log(reason);
-                        Swal(
-                            "Payment Add Failed!");
         });
 
 
-    }
-    ;
+    };
+
+
     render()
     {
         const {user} = this.props.auth;
@@ -207,7 +204,6 @@ class MyAccount extends Component{
 }
 
 const mapStateToProps = state => ({
-
     auth: state.auth
 
 });
