@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Button, Container} from "reactstrap";
-import {Card, CardBody, CardHeader, Col, Row} from "shards-react";
-import PageTitle from "../../components/AdminPageHeader";
-import dateFormat from "dateformat";
 import axios from "axios";
 import {SERVER_PATH} from "../../constants/constant";
+import Swal from "sweetalert2";
+import {Container, Table, Button} from "reactstrap";
+import dateFormat from 'dateformat';
+import {Card, CardBody, CardHeader, Col, Row} from "shards-react";
+import PageTitle from "../../components/AdminPageHeader";
 
-class AllBuses extends Component {
-
+class Passengers extends Component {
     constructor(props) {
         super(props);
 
@@ -18,7 +18,7 @@ class AllBuses extends Component {
 
     componentDidMount() {
 
-        axios.get(SERVER_PATH + '/api/trip/')
+        axios.get(SERVER_PATH + '/api/users/')
             .then(response => {
                 this.setState({
                     users :response.data,
@@ -32,13 +32,29 @@ class AllBuses extends Component {
 
     }
 
+    confirmAlart() {
+        Swal.fire(
+            'Good job!',
+            'Route has created!',
+            'success'
+        )
+    }
+
+    fieldmissAlart() {
+        Swal.fire({
+            icon: 'question',
+            title: 'Oppss! something missing',
+            text: 'Please select a category from the list'
+        })
+    }
+
     render() {
         return (
             <div className="container">
 
                 <Container fluid className="main-content-container px-4">
                     <Row noGutters className="page-header py-4">
-                        <PageTitle sm="4" title="Trips" subtitle="All Trips of Passenger" className="text-sm-left" />
+                        <PageTitle sm="4" title="Passengers" subtitle="All Registered Passengers" className="text-sm-left" />
                     </Row>
                     <hr/>
                     <Row>
@@ -52,12 +68,11 @@ class AllBuses extends Component {
                                         <thead className="bg-light">
                                         <tr>
                                             <th>#</th>
-                                            <th>Trip Date</th>
-                                            <th>Route Id</th>
-                                            <th>Start Location</th>
-                                            <th>End Location</th>
-                                            <th>Fair</th>
-                                            <th>Distance</th>
+                                            <th>Passenger Name</th>
+                                            <th>Passenger Id</th>
+                                            <th>Passenger Email</th>
+                                            <th>Registered Date</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -65,12 +80,11 @@ class AllBuses extends Component {
 
                                             <tr key={i}>
                                                 <th scope="row">{i+1}</th>
-                                                <td>{dateFormat(br.travelStartTime, "mmmm dS, yyyy")}</td>
-                                                <td>{br.route_id}</td>
-                                                <td>{br.startLocation}</td>
-                                                <td>{br.endLocation}</td>
-                                                <td>{br.fair}</td>
-                                                <td>{br.distance+'Km'}</td>
+                                                <td>{br.name}</td>
+                                                <td>{br._id}</td>
+                                                <td>{br.email}</td>
+                                                <td>{dateFormat(br.register_date, "mmmm dS, yyyy")}</td>
+                                                <td><Button className='btn-primary'>View</Button></td>
                                             </tr>
                                         ) )}
 
@@ -89,4 +103,5 @@ class AllBuses extends Component {
     }
 }
 
-export default AllBuses;
+// dateFormat(br.register_date, "mmmm dS, yyyy")
+export default Passengers;
