@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://admin:admin@cluster0.qggrt.gcp.mongodb.net/Online_Ticketing_System?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://admin:admin@cluster0.qggrt.mongodb.net/Online_Ticketing_System?retryWrites=true&w=majority",
   "jwtSecret": "tb_jwtsecret"
 }

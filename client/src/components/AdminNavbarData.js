@@ -4,7 +4,7 @@ import * as FaIcon from "react-icons/fa";
 export const AdminNavbarData = [
     {
         title: 'Home',
-        path: '/admin',
+        path: '/home',
         icon: <FaIcon.FaHome />,
         cName: 'nav-text'
     },
@@ -24,7 +24,7 @@ export const AdminNavbarData = [
         icon: <FaIcon.FaRoad />,
         cName: 'nav-text'
     },{
-        title: 'Buses',
+        title: 'Trips',
         path: '/buses',
         icon: <FaIcon.FaBus />,
         cName: 'nav-text'
