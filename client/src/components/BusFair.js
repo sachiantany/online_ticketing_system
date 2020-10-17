@@ -28,7 +28,10 @@ class  BusFair extends Component {
         isStartTrip :0,
         username:"",
         action:"Start Trip",
-        endTripUser:[]
+        endTripUser:[],
+        tripSum: 0,
+        paymentSum :[],
+        isGuest :0
     };
 
     componentDidMount() {
@@ -96,6 +99,60 @@ class  BusFair extends Component {
             })
     }
 
+    tripSum(userName){
+        axios.get(SERVER_PATH + '/api/trip/tripSum/'+userName)
+            .then(response => {
+
+                let trip_sum = {
+                        _id:'',
+                        total:0
+                }
+
+                trip_sum = response.data;
+                console.log(trip_sum)
+
+                this.setState({tripSum :trip_sum[0].total}, () => {
+                    console.log(this.state.tripSum)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    depositSum(userName){
+        axios.get(SERVER_PATH + '/api/trip/paymentSum/'+userName)
+            .then(response => {
+
+                let payment_sum = {
+                    _id:'',
+                    total:0
+                }
+
+                payment_sum = response.data;
+                console.log(payment_sum)
+
+                this.setState({tripSum :payment_sum[0].total}, () => {
+                    console.log(this.state.tripSum)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    isGuestValidate(userName){
+        axios.get(SERVER_PATH + '/api/trip/isGuest/'+userName)
+            .then(response => {
+                this.setState({isGuest :response.data}, () => {
+                    console.log('Guest Status : '+this.state.isGuest)
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     changeRoute(e){
         //this.setState({selectedRoute: e.target.value})
         this.setState({selectedRoute:  e.target.value}, () => {
@@ -121,6 +178,15 @@ class  BusFair extends Component {
             console.log(this.state.username);
             this.actionStatus(this.state.username);
             console.log(this.state.isStartTrip)
+
+            this.tripSum(this.state.username);
+            console.log('This is trip sum '+ this.state.tripSum)
+
+            this.depositSum(this.state.username);
+            console.log('This is trip sum '+ this.state.tripSum)
+
+            this.isGuestValidate(this.state.username);
+            console.log('Guest Status : '+this.state.isGuest)
         });
     }
 
@@ -132,24 +198,93 @@ class  BusFair extends Component {
         )
     }
 
+    confirmEndAlert() {
+        Swal.fire(
+            'Trip Ended!',
+            'Thanking You to Travel with us ',
+            'success'
+        )
+    }
+
+    confirmGuest(){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Travel As Guest!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Thank You!',
+                    'Trip Started.',
+                    'success'
+                )
+            }
+        })
+    }
+
     handleClick(){
         if(this.state.isStartTrip === 0){
-            console.log('start trip')
-            const trip = {
-                username: this.state.username,
-                route_id:this.state.selectedRoute,
-                startLocation: this.state.startLocation,
-                endLocation:0,
-                fair:0,
-                distance:0
-            }
-            axios.post(SERVER_PATH + '/api/trip/insert', trip)
-                .then(res => {
-                        console.log(res.data);
-                        this.setState({username: ""});
-                        this.confirmStartAlert();
+
+            if(this.state.isGuest === 0){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Travel As Guest!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        console.log('start trip');
+                        const trip = {
+                            username: this.state.username,
+                            route_id:this.state.selectedRoute,
+                            startLocation: this.state.startLocation,
+                            endLocation:0,
+                            fair:0,
+                            distance:0,
+                            isGuest : this.state.isGuest
+                        }
+                        axios.post(SERVER_PATH + '/api/trip/insert', trip)
+                            .then(res => {
+                                    console.log(res.data);
+                                    this.setState({username: ""});
+                                    this.confirmStartAlert();
+                                }
+                            );
+
+                        Swal.fire(
+                            'Thank You!',
+                            'Trip Started.',
+                            'success'
+                        )
                     }
-                );
+                })
+            }else{
+                console.log('start trip')
+                const trip = {
+                    username: this.state.username,
+                    route_id:this.state.selectedRoute,
+                    startLocation: this.state.startLocation,
+                    endLocation:0,
+                    fair:0,
+                    distance:0,
+                    isGuest : this.state.isGuest
+                }
+                axios.post(SERVER_PATH + '/api/trip/insert', trip)
+                    .then(res => {
+                            console.log(res.data);
+                            this.setState({username: ""});
+                            this.confirmStartAlert();
+                        }
+                    );
+            }
         }else{
             console.log('end trip');
             axios.get(SERVER_PATH + '/api/trip/'+this.state.username)
@@ -173,15 +308,49 @@ class  BusFair extends Component {
                             distance:distance
                         }
 
-                        axios.post(SERVER_PATH + "/api/trip/endTrip/" + this.state.username , trip)
-                            .then(res =>{
-                                console.log(res.data);
-                                this.setState({username: ""});
-                                this.confirmStartAlert();
-                            })
-                            .catch(error => {
-                                console.log(error.response)
-                            });;
+                        if(this.state.isGuest === 0){
+                            axios.post(SERVER_PATH + "/api/trip/endTrip/" + this.state.username , trip)
+                                .then(res =>{
+                                    console.log(res.data);
+                                    this.setState({username: ""});
+                                        Swal.fire({
+                                            title: 'Your Trip has ended Please pay your fair '+trip.fair,
+                                            showClass: {
+                                                popup: 'animate__animated animate__fadeInDown'
+                                            },
+                                            hideClass: {
+                                                popup: 'animate__animated animate__fadeOutUp'
+                                            }
+                                        })
+                                })
+                                .catch(error => {
+                                    console.log(error.response)
+                                });;
+
+                        }else{
+                            let availableBalance = this.state.paymentSum - this.state.tripSum;
+                            console.log('payment sum : '+this.state.paymentSum +'-'+ 'trip sum : '+ this.state.tripSum + ' = ' + availableBalance);
+
+                            if(availableBalance > trip.fair){
+                                axios.post(SERVER_PATH + "/api/trip/endTrip/" + this.state.username , trip)
+                                    .then(res =>{
+                                        console.log(res.data);
+                                        this.setState({username: ""});
+                                        this.confirmEndAlert();
+                                    })
+                                    .catch(error => {
+                                        console.log(error.response)
+                                    });;
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Insufficient Balance...',
+                                    text: 'Please Recharge Your Account and try again !',
+                                    footer: '<a href>Why do I have this issue?</a>'
+                                })
+                            }
+
+                        }
 
                     })
                 })

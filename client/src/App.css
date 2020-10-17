@@ -46,3 +46,9 @@
   font-family: 'Lato', sans-serif;
 }
 
+@media (min-width: 1200px) {
+  .container-admin{
+    width: 2000px;
+    margin-left: 30px;
+  }
+}
