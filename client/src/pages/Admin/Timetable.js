@@ -19,8 +19,8 @@ class Timetable extends Component {
             trips:[],
             BRName: '',
             BRId: '',
-            dropDownValue: 'Select action',
-            dropDownLocation: "No Location",
+            dropDownValue: 'Select',
+            dropDownLocation: "Select",
             interval: null,
             time: '10:00',
             location: []
@@ -78,15 +78,34 @@ class Timetable extends Component {
 
         let count=0;
         let TripArray = this.state.trips;
+        let LocArray = this.state.location;
 
 
         for (let i=0;i< TripArray.length;i++){
 
-            if(TripArray[i].route_id === route && dateFormat(TripArray[i].travelStartTime, "dddd") === this.state.dropDownValue){
-                count++;
-            }
 
+
+
+            if(this.state.dropDownLocation !=='Select') {
+                if (TripArray[i].route_id === route && dateFormat(TripArray[i].travelStartTime, "dddd") === this.state.dropDownValue) {
+                    count++;
+                }
+            }
         }
+
+        for (let i=0;i< LocArray.length;i++) {
+            console.log("loc :" + LocArray[i].distance);
+            console.log("loc cc :" + this.state.changeValueLocation);
+            if (this.state.dropDownLocation === 'Select') {
+                if (LocArray[i].route_id === route && LocArray[i].distance === this.state.dropDownLocation) {
+                    console.log("loc :" + LocArray[i].distance);
+                    console.log("loc cc :" + this.state.changeValueLocation);
+                    count++;
+                }
+            }
+        }
+
+
 
         return count;
     }
@@ -126,6 +145,7 @@ class Timetable extends Component {
                                        Select Day
                                     </DropdownToggle>
                                     <DropdownMenu>
+                                        <DropdownItem key="0" id="Select" onClick={this.changeValue}>Select</DropdownItem>
                                         <DropdownItem key="1" id="Monday" onClick={this.changeValue}>Monday</DropdownItem>
                                         <DropdownItem key="2" id="Tuesday" onClick={this.changeValue}>Tuesday</DropdownItem>
                                         <DropdownItem key="3" id="Wednesday" onClick={this.changeValue}>Wednesday</DropdownItem>
@@ -147,8 +167,9 @@ class Timetable extends Component {
                                        Select Location
                                     </DropdownToggle>
                                     <DropdownMenu>
+                                        <DropdownItem id='Select' onClick={this.changeValueLocation}>Select</DropdownItem>
                                         {this.state.location.map((lo, i) =>(
-                                        <DropdownItem key={i} id={lo.name} onClick={this.changeValueLocation}>{lo.name}</DropdownItem>
+                                        <DropdownItem key={i} id={lo.distance} onClick={this.changeValueLocation}>{lo.name}</DropdownItem>
                                         ) )}
                                     </DropdownMenu>
                                 </UncontrolledDropdown>

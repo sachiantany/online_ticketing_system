@@ -14,33 +14,34 @@ constructor(props) {
 
     this.state = {
         busRoute: [],
+        TripCount:[],
+        PassCount:[],
         DataArray:['test 1','test 2'],
         chartData:{
             route:[],
             fare:[]
         },
-        smallStats: [
-            {
-                label: "Routes",
-                value: "2,390",
-                percentage: "4.7%",
-                increase: true,
-                chartLabels: [null, null, null, null, null, null, null],
-                attrs: { md: "6", sm: "6" },
-                datasets: [
-                    {
-                        label: "Today",
-                        fill: "start",
-                        borderWidth: 1.5,
-                        backgroundColor: "rgba(0, 184, 216, 0.1)",
-                        borderColor: "rgb(0, 184, 216)",
-                        data: [1, 2, 1, 3, 5, 4, 7]
-                    }
-                ]
-            },
+        smallStats: [{
+            label: "Routes",
+            value: '34',
+            percentage: "4.7%",
+            increase: true,
+            chartLabels: [null, null, null, null, null, null, null],
+            attrs: { md: "6", sm: "6" },
+            datasets: [
+                {
+                    label: "Today",
+                    fill: "start",
+                    borderWidth: 1.5,
+                    backgroundColor: "rgba(0, 184, 216, 0.1)",
+                    borderColor: "rgb(0, 184, 216)",
+                    data: [1, 2, 1, 3, 5, 4, 7]
+                }
+            ]
+        },
             {
                 label: "Buses",
-                value: "182",
+                value: "20",
                 percentage: "12.4",
                 increase: true,
                 chartLabels: [null, null, null, null, null, null, null],
@@ -58,7 +59,7 @@ constructor(props) {
             },
             {
                 label: "Passengers",
-                value: "8,147",
+                value: "80",
                 percentage: "3.8%",
                 increase: false,
                 decrease: true,
@@ -77,7 +78,7 @@ constructor(props) {
             },
             {
                 label: "Trips",
-                value: "17,281",
+                value: '33',
                 percentage: "6.4%",
                 increase: false,
                 decrease: true,
@@ -94,9 +95,11 @@ constructor(props) {
                     }
                 ]
             }
+
         ]
     };
 
+    this.setDataToStat = this.setDataToStat(this);
     this.getData = this.getData.bind(this);
 }
 
@@ -111,7 +114,7 @@ constructor(props) {
                     busRoute :response.data,
                     loading :false
                 });
-                console.log("R ids"+this.state.busRoute);
+
             })
             .catch(error => {
                 console.log(error);
@@ -176,7 +179,7 @@ constructor(props) {
 
 
                 this.setState({
-                    trips :response.data,
+                    TripCount :response.data,
                     loading :false
                 });
                 console.log(this.state.trips);
@@ -196,6 +199,100 @@ constructor(props) {
             .catch(error => {
                 console.log(error);
             });
+
+    }
+
+
+    setDataToStat(){
+        let routeCount = 0;
+        let TripCount = 0;
+        let BusCount = 20;
+        let PassengersCount = 0;
+
+        for (let i=0;i< this.state.busRoute.length;i++) {
+            routeCount++;
+        }
+
+        for (let i=0;i< this.state.TripCount.length;i++) {
+            TripCount++;
+        }
+
+        this.setState({
+            smallStats:[ {
+                label: "Routes",
+                value: routeCount,
+                percentage: "4.7%",
+                increase: true,
+                chartLabels: [null, null, null, null, null, null, null],
+                attrs: { md: "6", sm: "6" },
+                datasets: [
+                    {
+                        label: "Today",
+                        fill: "start",
+                        borderWidth: 1.5,
+                        backgroundColor: "rgba(0, 184, 216, 0.1)",
+                        borderColor: "rgb(0, 184, 216)",
+                        data: [1, 2, 1, 3, 5, 4, 7]
+                    }
+                ]
+            },
+                {
+                    label: "Buses",
+                    value: BusCount,
+                    percentage: "12.4",
+                    increase: true,
+                    chartLabels: [null, null, null, null, null, null, null],
+                    attrs: { md: "6", sm: "6" },
+                    datasets: [
+                        {
+                            label: "Today",
+                            fill: "start",
+                            borderWidth: 1.5,
+                            backgroundColor: "rgba(23,198,113,0.1)",
+                            borderColor: "rgb(23,198,113)",
+                            data: [1, 2, 3, 3, 3, 4, 4]
+                        }
+                    ]
+                },
+                {
+                    label: "Passengers",
+                    value: "8,147",
+                    percentage: "3.8%",
+                    increase: false,
+                    decrease: true,
+                    chartLabels: [null, null, null, null, null, null, null],
+                    attrs: { md: "4", sm: "6" },
+                    datasets: [
+                        {
+                            label: "Today",
+                            fill: "start",
+                            borderWidth: 1.5,
+                            backgroundColor: "rgba(255,180,0,0.1)",
+                            borderColor: "rgb(255,180,0)",
+                            data: [2, 3, 3, 3, 4, 3, 3]
+                        }
+                    ]
+                },
+                {
+                    label: "Trips",
+                    value: TripCount,
+                    percentage: "6.4%",
+                    increase: false,
+                    decrease: true,
+                    chartLabels: [null, null, null, null, null, null, null],
+                    attrs: { md: "4", sm: "6" },
+                    datasets: [
+                        {
+                            label: "Today",
+                            fill: "start",
+                            borderWidth: 1.5,
+                            backgroundColor: "rgb(0,123,255,0.1)",
+                            borderColor: "rgb(0,123,255)",
+                            data: [3, 2, 3, 2, 4, 5, 4]
+                        }
+                    ]
+                }]
+        });
     }
 
 
@@ -229,29 +326,51 @@ constructor(props) {
                         ))}
                     </Row>
 
-                    <Row>
-                        <Chart
-                            width={'500px'}
-                            height={'300px'}
-                            chartType="Bar"
-                            loader={<div>Loading Chart</div>}
-                            data={[
-                                ['Route', 'Total Fair'],
-                                ['2014', 1000],
-                                ['2015', 1170],
-                                ['2016', 660],
-                                ['2017', 1030]
-                            ]}
-                            options={{
-                                // Material design options
-                                chart: {
-                                    title: 'Company Performance',
-                                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                                },
-                            }}
-                            // For tests
-                            rootProps={{ 'data-testid': '2' }}
-                        />
+                    <Row className='col-lg mb-2'>
+                        <Col xs="6" sm="6">
+                            <Chart
+                                width={'600px'}
+                                height={'500px'}
+                                chartType="Bar"
+                                loader={<div>Loading Chart</div>}
+                                data={[
+                                    ['Route', 'Total Fair'],
+                                    ['2', 940],
+                                    ['34', 230],
+                                    ['268/6', 100],
+                                    ['270', 450]
+                                ]}
+                                options={{
+                                    // Material design options
+                                    chart: {
+                                        title: 'Total Bus Fair for Each Route',
+                                        subtitle: '',
+                                    },
+                                }}
+                                // For tests
+                                rootProps={{ 'data-testid': '2' }}
+                            />
+                        </Col>
+                        <Col xs="6" sm="6">
+                            <Chart
+                                width={'700px'}
+                                height={'600px'}
+                                chartType="PieChart"
+                                loader={<div>Loading Chart</div>}
+                                data={[
+                                    ['Route', 'Passengers'],
+                                    ['2', 5],
+                                    ['34', 2],
+                                    ['268/6', 1],
+                                    ['270', 2],
+                                ]}
+                                options={{
+                                    title: 'Passengers in Each Route',
+                                }}
+                                rootProps={{ 'data-testid': '1' }}
+                            />
+
+                        </Col>
                     </Row>
 
 
