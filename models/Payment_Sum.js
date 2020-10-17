@@ -31,4 +31,4 @@ const PaymentSchema = new Schema({
     }
 });
 
-module.exports = Payment = mongoose.model('payment', PaymentSchema);
+module.exports = Payment = mongoose.model('payment_old', PaymentSchema);

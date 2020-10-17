@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 //busRoute Model
 const Trip = require('../../models/Trip');
-const Payment = require('../../models/Payment_Sum')
+const Payment = require('../../models/AddCash')
 const User = require('../../models/User')
 
 // @route  POST api/trip
